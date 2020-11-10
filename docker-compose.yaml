@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+    server:
+        container_name: api-server
+        build: ./server
+    web:
+        container_name: web-client
+        build: ./web
