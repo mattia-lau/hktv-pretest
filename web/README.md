@@ -1,6 +1,10 @@
 # State Management
+
 This project is using `Redux` to do the state management.
 
+# API Base URL
+
+`./src/state/utils/axios` replace http://localhost:8080 to your baseURL and rebuild.
 
 # Available Scripts
 

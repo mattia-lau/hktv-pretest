@@ -53,7 +53,10 @@ export const InventoryDetailsPage: React.FC = () => {
                     stocks,
                 }));
             })
-            .finally(() => setState((prev) => ({ ...prev, loading: false })));
+            .finally(() => {
+                setState((prev) => ({ ...prev, loading: false }));
+                setModel((prev) => ({ ...prev, visible: false, stock: null }));
+            });
     };
 
     const handleOnModelClick = (visible = false) =>
@@ -110,12 +113,12 @@ export const InventoryDetailsPage: React.FC = () => {
         <Empty />
     ) : (
         <>
-            <Descriptions title="Product Info">
+            <Descriptions title="Inventory Info">
                 <Descriptions.Item label="Name">{data?.name}</Descriptions.Item>
                 <Descriptions.Item label="Code">{data?.code}</Descriptions.Item>
             </Descriptions>
             <Table
-                title={() => <Title level={3}>Inventory</Title>}
+                title={() => <Title level={3}>Stocks</Title>}
                 loading={loading}
                 dataSource={stocks}
                 columns={columns}

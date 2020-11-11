@@ -66,7 +66,7 @@ export const ProductDetailsPage: React.FC = () => {
                 </Descriptions.Item>
             </Descriptions>
             <Table
-                title={() => <Title level={3}>Stocks</Title>}
+                title={() => <Title level={3}>Inventory</Title>}
                 rowKey="id"
                 columns={columns}
                 dataSource={state.data?.stocks || []}

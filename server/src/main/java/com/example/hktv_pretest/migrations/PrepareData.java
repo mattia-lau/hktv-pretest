@@ -2,8 +2,6 @@ package com.example.hktv_pretest.migrations;
 
 import com.example.hktv_pretest.entities.Inventory;
 import com.example.hktv_pretest.repositories.InventoryRepository;
-import com.example.hktv_pretest.repositories.ProductRepository;
-import com.example.hktv_pretest.repositories.StockRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

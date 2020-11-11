@@ -115,3 +115,13 @@ Content-Type: application/json
 ```
 GET /stocks
 ```
+
+
+## Transfer stock from one inventory to another Via Csv
+```
+POST /transfer
+Accept: multipart/form-data
+Content-Type: multipart/form-data
+
+file = "<File>"
+```
