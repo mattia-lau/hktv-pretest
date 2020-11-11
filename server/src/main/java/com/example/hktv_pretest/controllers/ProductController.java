@@ -60,19 +60,6 @@ public class ProductController {
         return productRepository.save(product);
     }
 
-    @PatchMapping("/{code}")
-    public Product updateProduct(@RequestBody Product product, @PathVariable("code") String code)
-            throws RecordNotFoundException {
-
-        Product exist = productRepository.findByCode(code);
-
-        if(exist == null) {
-            throw new RecordNotFoundException();
-        }
-
-        return productRepository.save(exist);
-    }
-
     @PostMapping("/upload")
     public List<Product> createProducts(@RequestParam("file") MultipartFile file) throws IOException {
         List<String> products = CsvReader.readCsv(file.getInputStream());
@@ -89,6 +76,19 @@ public class ProductController {
             }
         }
         return createdProducts;
+    }
+
+    @PatchMapping("/{code}")
+    public Product updateProduct(@RequestBody Product product, @PathVariable("code") String code)
+            throws RecordNotFoundException {
+
+        Product exist = productRepository.findByCode(code);
+
+        if (exist == null) {
+            throw new RecordNotFoundException();
+        }
+
+        return productRepository.save(exist);
     }
 
     @DeleteMapping("/{code}")

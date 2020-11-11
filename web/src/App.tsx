@@ -38,6 +38,9 @@ const App: React.FC = () => {
                     <Menu.Item key="inventories">
                         <Link to="/inventories">Inventories</Link>
                     </Menu.Item>
+                    <Menu.Item key="transfer">
+                        <Link to="/transfer">Transfer</Link>
+                    </Menu.Item>
                 </Menu>
             </Header>
             <Content className="site-content">

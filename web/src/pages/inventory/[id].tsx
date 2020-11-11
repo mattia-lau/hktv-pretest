@@ -60,7 +60,15 @@ export const InventoryDetailsPage: React.FC = () => {
 
   const handleOnModelSubmit = (values: any) => {
     const { dest, qty } = values;
-    console.log(dest, qty);
+    const { product } = model.stock!;
+
+    // TODO: Use Redux Reducer to Post
+    Axios.post(`/inventories/${code}/transfer`, {
+      destination: dest,
+      qty,
+      productCode: product.code,
+    });
+
   };
 
   const columns: ColumnsType<any> = [
