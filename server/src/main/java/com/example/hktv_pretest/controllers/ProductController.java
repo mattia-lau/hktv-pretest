@@ -3,7 +3,6 @@ package com.example.hktv_pretest.controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -54,7 +53,7 @@ public class ProductController {
     public Product createProduct(@Valid @RequestBody Product product) throws RecordExistException {
         Product exist = productRepository.findByCode(product.getCode());
 
-        if (exist == null) {
+        if (exist != null) {
             throw new RecordExistException();
         }
 

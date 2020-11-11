@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.example.hktv_pretest.dto.TransferDto;
 import com.example.hktv_pretest.entities.Inventory;
 import com.example.hktv_pretest.entities.Product;
 import com.example.hktv_pretest.entities.Stock;
@@ -93,5 +94,37 @@ public class InventoryController {
             result.add(stockRepository.save(stock));
         }
         return result;
+    }
+
+    @PostMapping("/{code}/transfer")
+    public Stock transfer(@PathVariable("code") String code, @Valid @RequestBody TransferDto dto)
+            throws RecordNotFoundException, InvalidArgumentException {
+        Inventory source = inventoryRepository.findByCode(code);
+        Product product = productRepository.findByCode(dto.getProductCode());
+        if (source == null || product == null) {
+            throw new RecordNotFoundException();
+        }
+
+        Stock stock = stockRepository.findByProductAndInventoryCode(product, source);
+        if (stock == null) {
+            throw new RecordNotFoundException();
+        }
+
+        if (stock.getQty() < dto.getQty()) {
+            throw new InvalidArgumentException();
+        }
+
+        Inventory dest = inventoryRepository.findByCode(dto.getDestination());
+        Stock destStock = stockRepository.findByProductAndInventoryCode(product, dest);
+        if (destStock == null) {
+            destStock = new Stock(product, 0, dest);
+        }
+
+        stock.setQty(stock.getQty() - dto.getQty());
+        destStock.setQty(destStock.getQty() + dto.getQty());
+
+        stockRepository.save(stock);
+
+        return stockRepository.save(destStock);
     }
 }

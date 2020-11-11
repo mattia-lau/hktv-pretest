@@ -60,12 +60,18 @@ export const productReducer = createReducer<ProductReducerState>(initalState)
         createProductAsync.success,
         (
             state: ProductReducerState,
-            action: PayloadAction<string, Product>
+            action: PayloadAction<string, Product | Product[]>
         ): ProductReducerState => {
             const { payload } = action;
+            const products = [...state.products]
+            if (Array.isArray(payload)) {
+                products.push(...payload)
+            } else {
+                products.push(payload)
+            }
             return {
                 ...state,
-                products: [...state.products, payload],
+                products,
             };
         }
     )

@@ -17,7 +17,7 @@ export const createProductAsync = createAsyncAction(
     CreateProductActionTypes.CREATE_PRODUCT_REQUEST,
     CreateProductActionTypes.CREATE_PRODUCT_SUCCESS,
     CreateProductActionTypes.CREATE_PRODUCT_FAILURE
-)<Product, Product, Error>();
+)<Product, Product | Product[], Error>();
 
 function* fetchProductSaga(
     action: ReturnType<typeof fetchProductAsync.request>
