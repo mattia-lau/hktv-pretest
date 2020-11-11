@@ -1,9 +1,6 @@
 package com.example.hktv_pretest.controllers;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +10,14 @@ import com.example.hktv_pretest.dto.TransferDto;
 import com.example.hktv_pretest.entities.Inventory;
 import com.example.hktv_pretest.entities.Product;
 import com.example.hktv_pretest.entities.Stock;
+import com.example.hktv_pretest.entities.Transfer;
 import com.example.hktv_pretest.exceptions.InvalidArgumentException;
 import com.example.hktv_pretest.exceptions.RecordExistException;
 import com.example.hktv_pretest.exceptions.RecordNotFoundException;
 import com.example.hktv_pretest.repositories.InventoryRepository;
 import com.example.hktv_pretest.repositories.ProductRepository;
 import com.example.hktv_pretest.repositories.StockRepository;
+import com.example.hktv_pretest.repositories.TransferRepository;
 import com.example.hktv_pretest.utils.CsvReader;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +42,9 @@ public class InventoryController {
     @Autowired
     private StockRepository stockRepository;
 
+    @Autowired
+    private TransferRepository transferRepository;
+
     @GetMapping
     public List<Inventory> getInventories() {
         return inventoryRepository.findAll();
@@ -65,8 +67,7 @@ public class InventoryController {
     }
 
     @PostMapping("/upload")
-    public List<Stock> createProducts(@RequestParam("file") MultipartFile file)
-            throws IOException, RecordNotFoundException, InvalidArgumentException {
+    public List<Stock> createProducts(@RequestParam("file") MultipartFile file) throws IOException {
         List<String> lines = CsvReader.readCsv(file.getInputStream());
         List<Stock> result = new ArrayList<>();
 
@@ -74,30 +75,30 @@ public class InventoryController {
             String[] split = line.split(",");
 
             if (split.length != 3) {
-                throw new InvalidArgumentException();
+                continue;
             }
 
             Inventory inventory = this.inventoryRepository.findByCode(split[0]);
             Product product = this.productRepository.findByCode(split[1]);
             if (inventory == null || product == null) {
-                throw new RecordNotFoundException();
+                continue;
             }
 
-            Stock stock = this.stockRepository.findByProductAndInventoryCode(product, inventory);
+            Stock source = this.stockRepository.findByProductAndInventoryCode(product, inventory);
 
-            if (stock == null) {
-                stock = this.stockRepository.save(new Stock(product, 0, inventory));
+            if (source == null) {
+                source = this.stockRepository.save(new Stock(product, 0, inventory));
             }
 
-            stock.setQty(stock.getQty() + Integer.parseInt(split[2]));
+            source.setQty(source.getQty() + Integer.parseInt(split[2]));
 
-            result.add(stockRepository.save(stock));
+            result.add(stockRepository.save(source));
         }
         return result;
     }
 
     @PostMapping("/{code}/transfer")
-    public Stock transfer(@PathVariable("code") String code, @Valid @RequestBody TransferDto dto)
+    public Transfer transfer(@PathVariable("code") String code, @Valid @RequestBody TransferDto dto)
             throws RecordNotFoundException, InvalidArgumentException {
         Inventory source = inventoryRepository.findByCode(code);
         Product product = productRepository.findByCode(dto.getProductCode());
@@ -124,7 +125,8 @@ public class InventoryController {
         destStock.setQty(destStock.getQty() + dto.getQty());
 
         stockRepository.save(stock);
-
-        return stockRepository.save(destStock);
+        stockRepository.save(destStock);
+        return transferRepository.save(new Transfer(product, stock, destStock, dto.getQty()));
     }
+
 }

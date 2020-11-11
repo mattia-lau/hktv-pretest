@@ -12,7 +12,6 @@ $ docker-compose up -d --build
 # Screenshots
 
 
-
 # TODO List
 
 - [x] develop a light version Warehouse Inventory System
@@ -20,6 +19,7 @@ $ docker-compose up -d --build
 - [x] able to store quantities of such products in different locations via csv file consumption.
 - [x] UI to show inventory level of given product code
 - [x] able to transfer inventory from one location to another given amount of quantity and product code via UI
+- [x] able to transfer inventory from one location to another given amount of quantity and product code via upload Csv
 
 # Diary
 

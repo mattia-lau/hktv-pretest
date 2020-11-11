@@ -33,7 +33,7 @@ public class ProductController {
     private ProductRepository productRepository;
 
     @GetMapping
-    public List<Product> getProducts() {
+    public Iterable<Product> getProducts() {
         return productRepository.findAll();
     }
 

@@ -1,10 +1,10 @@
 import { notification } from "antd";
 import { createReducer, PayloadAction } from "typesafe-actions";
-import { Product } from "../../../types";
+import { Inventory, Product } from "../../../types";
 import { createInventoryAsync, fetchInventoryAsync } from "./sagas";
 
 export interface InventoryReducerState {
-    inventories: Product[];
+    inventories: Inventory[];
     loading: boolean;
 }
 

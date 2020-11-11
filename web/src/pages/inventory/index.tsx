@@ -79,6 +79,7 @@ export const InventoryPage: React.FC = () => {
                 "Content-Type": "multipart/form-data",
             },
         }).then((res) => {
+            dispatch(fetchInventoryAsync.request({}));
             notification.open({
                 type: "success",
                 message: "Add Inventories Successful",

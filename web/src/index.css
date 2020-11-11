@@ -25,3 +25,11 @@
 .inventory-actions > *:not(:first-child) {
     margin: 16px 16px;
 }
+
+.ant-checkbox-wrapper + .ant-checkbox-wrapper {
+    margin-left: 0px !important;
+}
+
+.home > div {
+    padding-top: 24px;
+}
