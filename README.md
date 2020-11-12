@@ -4,9 +4,16 @@ Frontend: ReactJS with TypeScript
 Backend: Spring Boot  
 Database: MySQL
 
+# Testing / Development Environment
+1. Chrome
+2. Visual Studio Code with extensions (Spring Boot Dashboard)
+3. MacOS / MS Windows 10
+
 # Deploy JAR
+
 ```bash
 $ cd server
+$ chmod +x ./mvnw # For Linux Base OS, if permission denied
 $ ./mvnw clean install -s .mvn/wrapper/settings.xml -DskipTests
 ```
 
@@ -69,27 +76,28 @@ $ docker-compose up -d --build
 <img src="./screenshots/transfer-history.png" alt="transfer-history.png" />
 
 ## Transfer the stock from one inventory to another via CSV
+
 `Navbar -> Transfer`
 <img src="./screenshots/transfer-csv.png" alt="transfer-csv.png" />
 
 # TODO List
 
--   [x] develop a light version Warehouse Inventory System
--   [x] able to store product data via csv file consumption.
--   [x] able to store quantities of such products in different locations via csv file consumption.
--   [x] UI to show inventory level of given product code
--   [x] able to transfer inventory from one location to another given amount of quantity and product code via UI
--   [x] able to transfer inventory from one location to another given amount of quantity and product code via upload Csv
+- [x] develop a light version Warehouse Inventory System
+- [x] able to store product data via csv file consumption.
+- [x] able to store quantities of such products in different locations via csv file consumption.
+- [x] UI to show inventory level of given product code
+- [x] able to transfer inventory from one location to another given amount of quantity and product code via UI
+- [x] able to transfer inventory from one location to another given amount of quantity and product code via upload Csv
 
 # Diary
 
 Since this is my first time to use Java Spring Boot to build the API Server, so i have used many time to study the techniques which is using in this project. For example: Jpa.
 
--   Day 1:  
-    Create the Spring Boot Project, and try to create a Hello World API Controlelr.
+- Day 1:  
+  Create the Spring Boot Project, and try to create a Hello World API Controlelr.
 
--   Day 2:  
-    Connect with database and Create all RestController with Real Data and data validation.
+- Day 2:  
+  Connect with database and Create all RestController with Real Data and data validation.
 
--   Day 3:  
-    Create the React App and migrate the API as well as documentations.
+- Day 3:  
+  Create the React App and migrate the API as well as documentations.

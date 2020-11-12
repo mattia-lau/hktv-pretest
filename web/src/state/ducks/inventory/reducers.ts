@@ -42,10 +42,6 @@ export const inventoryReducer = createReducer<InventoryReducerState>(
     .handleAction(
         fetchInventoryAsync.failure,
         (state: InventoryReducerState, action: any): InventoryReducerState => {
-            notification.open({
-                type: "error",
-                message: action.payload,
-            });
             return {
                 ...state,
                 loading: false,
@@ -76,10 +72,6 @@ export const inventoryReducer = createReducer<InventoryReducerState>(
     .handleAction(
         createInventoryAsync.failure,
         (state: InventoryReducerState, action: any): InventoryReducerState => {
-            notification.open({
-                type: "error",
-                message: action.payload,
-            });
             return {
                 ...state,
             };

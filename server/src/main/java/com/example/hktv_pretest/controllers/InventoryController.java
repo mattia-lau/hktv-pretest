@@ -116,6 +116,9 @@ public class InventoryController {
         }
 
         Inventory dest = inventoryRepository.findByCode(dto.getDestination());
+        if (dest == null) {
+            throw new RecordNotFoundException();
+        }
         Stock destStock = stockRepository.findByProductAndInventoryCode(product, dest);
         if (destStock == null) {
             destStock = new Stock(product, 0, dest);

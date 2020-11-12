@@ -40,10 +40,6 @@ export const productReducer = createReducer<ProductReducerState>(initalState)
     .handleAction(
         fetchProductAsync.failure,
         (state: ProductReducerState, action: any): ProductReducerState => {
-            notification.open({
-                type: "error",
-                message: action.payload,
-            });
             return {
                 ...state,
                 loading: false,
@@ -78,10 +74,6 @@ export const productReducer = createReducer<ProductReducerState>(initalState)
     .handleAction(
         createProductAsync.failure,
         (state: ProductReducerState, action: any): ProductReducerState => {
-            notification.open({
-                type: "error",
-                message: action.payload,
-            });
             return state;
         }
     );

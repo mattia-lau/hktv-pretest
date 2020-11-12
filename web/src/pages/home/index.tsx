@@ -12,6 +12,9 @@ export const HomePage: React.FC<HomePageProps> = (props) => {
                 <Paragraph>
                     Due to the time limitation, this is all my best effort.
                 </Paragraph>
+                <Paragraph>
+                    Try to click the table row in every table to see the magic.
+                </Paragraph>
             </div>
             <div>
                 <Title level={2}>Function List</Title>

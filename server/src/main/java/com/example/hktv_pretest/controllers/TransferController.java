@@ -64,20 +64,21 @@ public class TransferController {
 
             Inventory source = inventoryRepository.findByCode(sourceCode);
             Product product = productRepository.findByCode(productCode);
-            if (source == null || product == null) {
+            if (source == null || product == null ) {
                 continue;
             }
 
             Stock sourceStock = stockRepository.findByProductAndInventoryCode(product, source);
-            if (sourceStock == null) {
-                continue;
-            }
-
-            if (sourceStock.getQty() < qty) {
+            if (sourceStock == null || sourceStock.getQty() < qty) {
                 continue;
             }
 
             Inventory dest = inventoryRepository.findByCode(destCode);
+
+            if (dest == null) {
+                continue;
+            }
+
             Stock destStock = stockRepository.findByProductAndInventoryCode(product, dest);
             if (destStock == null) {
                 destStock = new Stock(product, 0, dest);
