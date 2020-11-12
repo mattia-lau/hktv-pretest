@@ -14,7 +14,7 @@ Database: MySQL
 ```bash
 $ cd server
 $ chmod +x ./mvnw # For Linux Base OS, if permission denied
-$ ./mvnw clean install -s .mvn/wrapper/settings.xml -DskipTests
+$ ./mvnw clean install -s .mvn/wrapper/settings.xml -DskipTests # because the use mysql DNS to resolve the database address. So the test must fail. And the test is not inside the docker container and network
 ```
 
 # How to Compile With Docker
